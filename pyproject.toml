@@ -14,7 +14,7 @@ keywords = [
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: GNU General Public License version 3 License",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -63,12 +63,16 @@ requires = ["setuptools>=67.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["harmonize_ds*"]
+include = ["harmonize_ds*", "harmonize_ds"]
 exclude = ["tests*"]
 namespaces = false
 
 [tool.setuptools.package-data]
-"harmonize_ds" = ["py.typed"]
+"harmonize_ds" = [
+    "py.typed",
+    "jsonschemas/*.json",
+    "templates/*.html"
+    ]
 
 [project.scripts]
 harmonizeds-cli = "harmonize_ds.cli:cli"

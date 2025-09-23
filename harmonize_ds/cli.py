@@ -121,7 +121,6 @@ def describe(config: Config, verbose, collection_id, id, time):
     )
 
     bbox = metadata.get("bbox", {})
-    
     if isinstance(bbox, dict):
         def parse_pair(value: str):
             if isinstance(value, str):
@@ -136,7 +135,6 @@ def describe(config: Config, verbose, collection_id, id, time):
         upper = (bbox[2], bbox[3])
     else:
         lower = upper = (0.0, 0.0)
-
 
     bbox_table = Table(
         title="Bounding Box (WGS 84)", show_header=True, header_style="bold magenta"

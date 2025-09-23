@@ -24,8 +24,6 @@ import httpx
 import jinja2
 from jsonschema import RefResolver, validate
 
-base_schemas_path = resources.files(__package__) / "jsonschemas"
-
 templateLoader = jinja2.FileSystemLoader(
     searchpath=str(resources.files(__package__) / "templates")
 )
@@ -61,7 +59,9 @@ class Utils:
             if content_type == "application/octet-stream":
                 content_disposition = response.headers.get("content-disposition", "")
                 try:
-                    file_name = re.findall(r'filename="?(.*?)"?$', content_disposition)[0]
+                    file_name = re.findall(r'filename="?(.*?)"?$', content_disposition)[
+                        0
+                    ]
                 except IndexError as exc:
                     raise ValueError(
                         "Error extracting file name from Content-Disposition header."
@@ -73,14 +73,13 @@ class Utils:
                 "application/geo+json",
                 "application/xml",
                 "text/xml; charset=utf-8",
-                "application/json;charset=UTF-8"
+                "application/json;charset=UTF-8",
             ):
                 raise ValueError(
                     f"HTTP response is not JSON or XML: Content-Type: {content_type}"
                 )
 
         return response.text
-
 
     @staticmethod
     def _post(
@@ -159,14 +158,6 @@ class Utils:
             response.raise_for_status()
 
         return response
-
-    @staticmethod
-    def validate(lccs_object):
-        """Validate a lucc Object using its jsonschemas."""
-        resolver = RefResolver(
-            base_uri=f"file://{base_schemas_path}/", referrer=lccs_object
-        )
-        validate(lccs_object, lccs_object._schema, resolver=resolver)
 
     @staticmethod
     def render_html(template_name, **kwargs):

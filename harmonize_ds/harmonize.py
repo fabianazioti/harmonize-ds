@@ -72,7 +72,7 @@ class CollectionClient:
     def __repr__(self) -> str:
         """Collection representation."""
         return f"<CollectionClient title={self.title}, source_id={self._datasource._source_id }, collection_id={self._collection_id}>"
-    
+
     def _repr_html_(self):
         """Render collection metadata as HTML in Jupyter Notebook."""
         html = Utils.render_html("metadata.html", metadata=self._metadata)
